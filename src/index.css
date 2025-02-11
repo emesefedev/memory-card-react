@@ -1,5 +1,6 @@
 * {
   margin: 0;
+  box-sizing: border-box;
 }
 
 :root {
@@ -67,10 +68,12 @@ h1 {
 .cards-grid {
   display: grid;
 
-  gap: 8px;
+  gap: 16px;
 
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+  padding: 16px;
 }
 
 /* OTHER */
@@ -87,20 +90,22 @@ h1 {
 .card {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
+  gap: 16px;
 
   background-color: var(--main-color);
   border-radius: 8px;
   
-  min-height: 425px;
+  min-height: 400px;
+
+  padding-top: 48px;
 }
 
 .img-container {
   background-color: var(--secondary-color);
   border-radius: 8px;
   
-  width: 75%;
+  width: 70%;
   aspect-ratio: 1 / 1;
 }
 
@@ -110,8 +115,9 @@ h1 {
 
 .pokemon-name {
   color: var(--dark-color);
-  font-size: 1.5em;
+  font-size: 1.6em;
   font-weight: bold;
+  text-transform: capitalize;
 }
 
 
