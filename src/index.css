@@ -1,11 +1,21 @@
+* {
+  margin: 0;
+}
+
 :root {
+  --main-color: #FFD54A;
+  --secondary-color: #E6A452;
+  --background-color: #111111;
+  --light-color: #FFEEBD;
+  --dark-color: #945910;
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--main-color);
+  background-color: var(--background-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,21 +23,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding-top: 1vh;
+  padding-right: 3vw;
+  padding-bottom: 1vh;
+  padding-left: 3vw;
+
+  height: 100vh;
 }
 
 h1 {
@@ -35,34 +37,92 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+
+/* FLEX  */
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.gap-8 {
+  gap: 8px;
+}
+
+/* TEXT */
+
+.text-bold {
+  font-weight: bold;
+}
+
+/* GRID */
+
+.cards-grid {
+  display: grid;
+
+  gap: 8px;
+
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* OTHER */
+
+.instructions {
+  color: var(--secondary-color);
+}
+
+.score {
+  color: var(--secondary-color);
+  font-size: 1.1em;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  background-color: var(--main-color);
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  
+  min-height: 425px;
 }
-button:hover {
-  border-color: #646cff;
+
+.img-container {
+  background-color: var(--secondary-color);
+  border-radius: 8px;
+  
+  width: 75%;
+  aspect-ratio: 1 / 1;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+.img-container > img {
+  width: 100%;
 }
+
+.pokemon-name {
+  color: var(--dark-color);
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+    /* TODO: Comprobar si el contraste funciona correctamente */
+  --main-color: #FFD54A;
+  --secondary-color: #E6A452;
+  --background-color: #FFFFFF;
+  --light-color: #FFEEBD;
+  --dark-color: #945910;
+    
   }
 }
