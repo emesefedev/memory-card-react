@@ -5,13 +5,14 @@ import { generateRandomNumbers } from './utilities';
 
 const pokemonAPI = "https://pokeapi.co/api/v2/"
 
-export function Cards() {
+export function Cards({handleClick}) {
+  const [isLoading, setIsLoading] = useState(true);
   const [pokemons, setPokemons] = useState([]);
-  
-  useEffect(() => {
+
+  async function fetchAllPokemons() {
     const randomNumbers = generateRandomNumbers(8, 151)
     let savedPokemons = [] 
-    
+
     for (let i = 0; i < randomNumbers.length; i++) {
       const id = randomNumbers[i]
       fetch(`${pokemonAPI}/pokemon/${id}`)
@@ -27,15 +28,31 @@ export function Cards() {
         savedPokemons.push(pokemon)
       });
     }
-
-    setPokemons(savedPokemons)
+    return savedPokemons
+  }
+  
+  useEffect(() => {
+    fetchAllPokemons()
+    .then((savedPokemons) => {
+      setPokemons(savedPokemons)
+    })
+    .then(() => {
+      setTimeout(() => {
+        setIsLoading(false)
+      }, "1500");      
+    })
   }, []);
   
   return (
-    <div className="cards-grid">
-      {pokemons.map((p) => (
-        <Card key={p.id} name={p.name} image={p.image}></Card>
-      ))}
-    </div>
+    <>
+      {isLoading
+        ? <p>Loading...</p>
+        : <div className="cards-grid">
+          {pokemons.map((p) => (
+            <Card key={p.id} name={p.name} image={p.image} handleClick={handleClick}></Card>
+          ))}
+        </div>
+      }
+    </>
   );
 };
