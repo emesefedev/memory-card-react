@@ -13,10 +13,9 @@ export default function App() {
 
   const updateScore = (clikedCard) => {
     if (!clikedCard) {
-      console.log("valid")
       setScore(score + 1)
+      if (score + 1 === 8) console.log("WIN")
     } else {
-      console.log("invalid")
       console.log("GAME OVER")
       setScore(0)
       updateHighScore(score)
@@ -30,7 +29,7 @@ export default function App() {
       <div className="flex flex-col gap-8">
         <h1>POKEMON MEMORY GAME</h1>
         <Info score={score} highScore={highScore}></Info>
-        <Cards handleClick={updateScore}></Cards>
+        <Cards handleClick={updateScore} score={score}></Cards>
       </div>
     </>
   )

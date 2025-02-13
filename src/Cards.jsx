@@ -5,7 +5,7 @@ import { generateRandomNumbers } from './utilities';
 
 const pokemonAPI = "https://pokeapi.co/api/v2/"
 
-export function Cards({handleClick}) {
+export function Cards({handleClick, score}) {
   const [isLoading, setIsLoading] = useState(true);
   const [pokemons, setPokemons] = useState([]);
 
@@ -35,13 +35,10 @@ export function Cards({handleClick}) {
     fetchAllPokemons()
     .then((savedPokemons) => {
       setPokemons(savedPokemons)
-    })
-    .then(() => {
       setTimeout(() => {
         setIsLoading(false)
-      }, "1500");      
-    })
-  }, []);
+      }, "1500");   
+  })}, []);
   
   return (
     <>
@@ -49,7 +46,15 @@ export function Cards({handleClick}) {
         ? <p>Loading...</p>
         : <div className="cards-grid">
           {pokemons.map((p) => (
-            <Card key={p.id} name={p.name} image={p.image} handleClick={handleClick}></Card>
+            <Card 
+              key={p.id} 
+              name={p.name} 
+              image={p.image} 
+              handleClick={handleClick} 
+              pokemons={pokemons} 
+              setPokemons={setPokemons}
+              score={score}>  
+            </Card>
           ))}
         </div>
       }
