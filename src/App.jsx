@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
+import { Cards } from "./Cards"
+import { totalCards } from "./constants"
+import { DifficultyButtons } from "./DifficultyButtons"
+import { Info } from "./Info"
+import { state } from "./constants"
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [score, setScore] = useState(0)
+  const [highScore, setHighScore] = useState(0)
+  const [gameState, setGameState] = useState(state.selectingLevel)
+  const [difficulty, setDifficulty] = useState(0) // 0: easy, 1: medium, 2: hard
 
+  function updateHighScore(newScore) {
+    setHighScore(prevScore => {
+      return Math.max(prevScore, newScore)
+    })
+  }
+
+  const updateScore = (clikedCard) => {
+    if (!clikedCard) {
+      setScore(score + 1)
+      if (score + 1 === totalCards[difficulty]) {
+        setGameState(state.win)
+        setTimeout(() => {
+          setGameState(state.selectingLevel)
+        }, 3000);
+      }
+    } else {
+      setGameState(state.gameOver)
+      setScore(0)
+      updateHighScore(score)
+      setTimeout(() => {
+        setGameState(state.selectingLevel)
+      }, 3000);
+    }  
+  }
+
+  const selectDifficulty = (selectedDifficulty) => {
+    setDifficulty(selectedDifficulty)
+    setGameState(state.inGame)
+  }
+  
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="flex flex-col gap-8">
+        <h1>POKEMON MEMORY GAME</h1>
+        <Info score={score} highScore={highScore} gameState={gameState}></Info>
+        { gameState === state.selectingLevel
+          ? <DifficultyButtons selectDifficulty={selectDifficulty}></DifficultyButtons>
+          : <Cards handleClick={updateScore} score={score} difficulty={difficulty} gameState={gameState}></Cards>
+        }
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
-
-export default App
