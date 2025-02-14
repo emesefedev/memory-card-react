@@ -1,16 +1,17 @@
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Card } from './Card';
+import { cardsGridByLevel, totalCards } from './constants';
 import { generateRandomNumbers } from './utilities';
 
 const pokemonAPI = "https://pokeapi.co/api/v2/"
 
-export function Cards({handleClick, score}) {
+export function Cards({handleClick, score, difficulty, gameState}) {
   const [isLoading, setIsLoading] = useState(true);
   const [pokemons, setPokemons] = useState([]);
 
   async function fetchAllPokemons() {
-    const randomNumbers = generateRandomNumbers(8, 151)
+    const randomNumbers = generateRandomNumbers(totalCards[difficulty], 151)
     let savedPokemons = [] 
 
     for (let i = 0; i < randomNumbers.length; i++) {
@@ -37,14 +38,16 @@ export function Cards({handleClick, score}) {
       setPokemons(savedPokemons)
       setTimeout(() => {
         setIsLoading(false)
-      }, "1500");   
-  })}, []);
+      }, "1500") 
+  })}, [difficulty]);
+
+  const styleByLevel = cardsGridByLevel[difficulty]
   
   return (
     <>
       {isLoading
         ? <p>Loading...</p>
-        : <div className="cards-grid">
+        : <div className="cards-grid" style={styleByLevel}>
           {pokemons.map((p) => (
             <Card 
               key={p.id} 
@@ -53,7 +56,9 @@ export function Cards({handleClick, score}) {
               handleClick={handleClick} 
               pokemons={pokemons} 
               setPokemons={setPokemons}
-              score={score}>  
+              score={score}
+              difficulty={difficulty}
+              gameState={gameState}>  
             </Card>
           ))}
         </div>
