@@ -7,3 +7,7 @@
                |__/                                    
 
 ```
+
+🎯 [Assignment](https://www.theodinproject.com/lessons/node-path-react-new-memory-card)
+
+🎮 [Result](https://memory-card-react-rho.vercel.app/)
