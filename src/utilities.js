@@ -3,13 +3,17 @@ function getRandomNumber(max) {
 }
 
 export function generateRandomNumbers(n, max) {
-  let randomNumbers = []
-  while(randomNumbers.length < n) {
+  let randomNumbers = new Set()
+  
+  while(randomNumbers.size < n) {
     let randomNumber = getRandomNumber(max)
-    if(randomNumbers.indexOf(randomNumber) === -1) randomNumbers.push(randomNumber)
+    if(randomNumber == 0) {
+      randomNumber = 1
+    }
+    randomNumbers.add(randomNumber)
   }
 
-  return randomNumbers
+  return Array.from(randomNumbers)
 }
 
 export function shuffleArray(array) {

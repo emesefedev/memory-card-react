@@ -1,12 +1,14 @@
+import { state } from "./constants"
+
 export function Info({score, highScore, gameState}) {
 
   const isFirstPlay = score === 0 && highScore === 0
 
   return (
     <>
-      {gameState === "selectingLevel" && <p className="instructions">Select a level of difficulty:</p>}
+      {gameState === state.selectingLevel && <p className="instructions">Select a level of difficulty:</p>}
       {
-        gameState === "inGame" && 
+        gameState === state.inGame && 
         <>
           { 
             isFirstPlay 
@@ -18,8 +20,8 @@ export function Info({score, highScore, gameState}) {
           }
         </>
       } 
-      {gameState === "win" && <p className="game-over-text">Congratulations! You won!</p>}
-      {gameState === "gameOver" && <p className="game-over-text">GAME OVER</p>}
+      {gameState === state.win && <p className="game-over-text">Congratulations! You won!</p>}
+      {gameState === state.gameOver && <p className="game-over-text">GAME OVER</p>}
     </>
   )
 }

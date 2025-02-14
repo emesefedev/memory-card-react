@@ -4,6 +4,13 @@ export const totalCards = {
   2: 24 // hard
 }
 
+export const state = {
+  selectingLevel: "selectingLevel", 
+  inGame: "inGame",
+  win: "win", 
+  gameOver: "gameOver"
+}
+
 export const cardsGridByLevel = {
   0: {
     gridTemplateRows: `repeat(2, 1fr)`,
